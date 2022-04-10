@@ -1,0 +1,97 @@
+digraph example {
+	rankdir=LR;
+	bgcolor="#eeeeff";
+	node [fontname=Arial, fontsize=10];
+	edge [color=red, style=bold, fontsize=9];
+
+	// Actors
+	{
+		node [shape=custom, shapefile="Actor.png", 
+			width=.552, height=0.77, fixedsize=true, 
+			color="#ffffaa", label="\n\n\n\n\n\n\N"]
+
+        Personal
+        Tutor
+	}
+
+	// System Use Cases
+	subgraph clusterSystem
+	{
+		label="Sistema Plan Cala - Área Administrativa"; // Name your system here
+		fillcolor="#ffffdd"; style=filled; color=black; // The system box
+		node [shape=ellipse, style=filled, fillcolor="#ccffcc", color="#558855"]
+
+		GestionInstituciones[label="Gestión\nde\nInstituciones"]
+        AltaInstituciones[label="Alta\nde\nInstituciones"]
+        ModificacionInstituciones[label="Modificación\nde\nInstituciones"]
+        ConsultaInstituciones[label="Consulta\nde\nInstituciones"]
+
+		GeneracionInformes[label="Generación\nde\nInformes"]
+		ReporteInsripcionInstitucion[label="Reporte\nde\nIncripción\nde\nInstitución"]
+		ReporteInsripcionProyecto[label="Reporte\nde\nIncripción\nde\nProyecto"]
+		ReporteProyectoInstitucion[label="Reporte\nde\nProyecto\npor\nInstitución"]
+
+		GestionProyectos[label="Gestión\nde\nProyectos"]
+		AltaProyectos[label="Alta\nde\nProyectos"]
+		ModificacionProyectos[label="Modificación\nde\nProyectos"]
+		BajaProyectos[label="Baja\nde\nProyectos"]
+		ConsultaProyectos[label="Consulta\nde\nProyectos"]
+
+        AsesoramientoSobreProyectos[label="Asesoramiento\nsobre\nProyectos"]
+        VerificacionSobreProyectos[label="Verificación\nde\nProyectos"]
+        DerivacionProyectosAnalisis[label="Derivación\nde\nProyectos\na Área de\nAnálisis"]
+        SeguimientoAdminProyectos[label="Seguimiento\nAdministrativo\nde\nProyectos"]
+        ControlSeguimientoTecnico[label="Control y\nSeguimiento\nde\nProyectos"]
+        DerivacionProyectosAuditoria[label="Derivación\nde\nProyectos\na Área de\nAuditoría"]
+        ComunicacionDeInformes[label="Comunicación\nde\nInformes\na Insitituciones"]
+
+        
+	}
+
+	// Uses
+	Personal -> GestionInstituciones
+	Personal -> GestionProyectos
+	Personal -> GeneracionInformes 
+
+	Tutor -> GestionProyectos
+	Tutor -> GeneracionInformes 
+	Tutor -> AsesoramientoSobreProyectos 
+	Tutor -> VerificacionSobreProyectos 
+	Tutor -> SeguimientoAdminProyectos 
+	Tutor -> ControlSeguimientoTecnico 
+	// Extensions
+	{
+		edge [label="<<extends>>", dir=back]
+
+		VerificacionSobreProyectos -> DerivacionProyectosAnalisis 
+		ControlSeguimientoTecnico -> DerivacionProyectosAuditoria 
+        AsesoramientoSobreProyectos -> ComunicacionDeInformes
+	}
+
+	// Inclusions
+	{
+		 edge [label="<<includes>>"]
+
+         GestionInstituciones -> AltaInstituciones
+         GestionInstituciones -> ModificacionInstituciones 
+         GestionInstituciones -> ConsultaInstituciones 
+	
+         GestionProyectos -> AltaProyectos
+         GestionProyectos -> ModificacionProyectos
+         GestionProyectos -> BajaProyectos
+         GestionProyectos -> ConsultaProyectos
+
+         GeneracionInformes -> ReporteInsripcionInstitucion
+         GeneracionInformes -> ReporteInsripcionProyecto
+         GeneracionInformes -> ReporteProyectoInstitucion
+
+	}
+
+	// Generalizations
+	{
+		edge [arrowsize=1.5, arrowtail=empty, dir=back, constraint=false]
+	
+		// Inmersion -> Batism
+		// Navigate -> GaleonPiloting
+	}
+}

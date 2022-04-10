@@ -1,0 +1,1 @@
+dot -Tpng MarUseCases.dot -o example.png

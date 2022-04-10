@@ -1,0 +1,88 @@
+digraph example {
+	rankdir=LR;
+	bgcolor="#eeeeff";
+	node [fontname=Arial, fontsize=10];
+	edge [color=red, style=bold, fontsize=9];
+
+	// Actors
+	{
+		node [shape=custom, shapefile="Actor.png", 
+			width=.552, height=0.77, fixedsize=true, 
+			color="#ffffaa", label="\n\n\n\n\n\n\N"]
+
+        Personal
+	}
+
+	// System Use Cases
+	subgraph clusterSystem
+	{
+		label="Sistema Plan Cala - Departamento de Auditoría"; // Name your system here
+		fillcolor="#ffffdd"; style=filled; color=black; // The system box
+		node [shape=ellipse, style=filled, fillcolor="#ccffcc", color="#558855"]
+
+        ControlarProyecto[label="Control\nde\nProyecto"]
+		EvaluacionTecnicaImplementacion[label="Evaluación Técnica\nde implementación\nde Proyecto"]
+		EvaluacionTecnicaImpacto[label="Análisis y medición\nde impacto social\nprevisto en Proyecto"]
+        ControlEjecucionEtapas[label="Control de\nejecución\nde etapas previstas\ndel Proyectos"]
+        ControlCumplimientoMetas[label="Monitoreo de\ncumplimiento de\nmetas cualitativas"]
+        SeguimientoRecursosFinancieros[label="Seguimiento de\nrecursos\nfinancieros liberados"]
+        RevisionInformes[label="Revisión de informes\npresentados en\ncada etapa"]
+        CertificacionResultados[label="Certificación\nde resultados"]
+
+        GestionAuditoria[label="Gestión\nde Auditoría"]
+        AdicionResultados[label="Adición de datos\nsobre resultado\nde Auditoría"]
+        ConsultaProyectos[label="Consulta\nde Proyectos"]
+        ConsultaInstituciones[label="Consulta\nde Instituciones"]
+        BajaProyectos[label="Baja\nde Proyectos"]
+
+        GeneracionInformes[label="Generación\nde Informes"]
+        ReporteProyectosEvaluados[label="Reporte\nde Proyectos Evaluados"]
+        ReporteEvaluaciones[label="Reporte\nde Evaluaciones"]
+        ReporteAuditorias[label="Reporte\nde Auditorías"]
+        ReporteProyectosAuditados[label="Reporte\nde Proyectos Auditados"]
+        
+	}
+
+	// Uses
+    
+	Personal -> ControlarProyecto 
+	Personal -> GestionAuditoria 
+	Personal -> GeneracionInformes 
+	// Extensions
+	{
+		edge [label="<<extends>>", dir=back]
+
+	}
+
+	// Inclusions
+	{
+		 edge [label="<<includes>>"]
+        ControlarProyecto -> EvaluacionTecnicaImplementacion	
+        ControlarProyecto -> EvaluacionTecnicaImpacto
+        ControlarProyecto -> ControlEjecucionEtapas
+        ControlarProyecto -> ControlCumplimientoMetas
+        ControlarProyecto -> SeguimientoRecursosFinancieros	
+        ControlarProyecto -> RevisionInformes
+        ControlarProyecto -> CertificacionResultados
+
+
+        GestionAuditoria -> AdicionResultados
+        GestionAuditoria -> ConsultaProyectos
+        GestionAuditoria -> ConsultaInstituciones
+        GestionAuditoria -> BajaProyectos
+
+        GeneracionInformes -> ReporteProyectosEvaluados
+        GeneracionInformes -> ReporteEvaluaciones
+        GeneracionInformes -> ReporteAuditorias
+        GeneracionInformes -> ReporteProyectosAuditados
+
+	}
+
+	// Generalizations
+	{
+		edge [arrowsize=1.5, arrowtail=empty, dir=back, constraint=false]
+	
+		// Inmersion -> Batism
+		// Navigate -> GaleonPiloting
+	}
+}

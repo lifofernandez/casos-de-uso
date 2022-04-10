@@ -1,0 +1,70 @@
+digraph example {
+	rankdir=LR;
+	bgcolor="#eeeeff";
+	node [fontname=Arial, fontsize=10];
+	edge [color=red, style=bold, fontsize=9];
+
+	// Actors
+	{
+		node [shape=custom, shapefile="Actor.png", 
+			width=.552, height=0.77, fixedsize=true, 
+			color="#ffffaa", label="\n\n\n\n\n\n\N"]
+
+        Personal
+	}
+
+	// System Use Cases
+	subgraph clusterSystem
+	{
+		label="Sistema Plan Cala - Dep Financiero y Evaluación Económica"; // Name your system here
+		fillcolor="#ffffdd"; style=filled; color=black; // The system box
+		node [shape=ellipse, style=filled, fillcolor="#ccffcc", color="#558855"]
+
+        EvaluarProyecto[label="Evaluación\nde\nProyecto"]
+		EvaluacionCostoProyecto[label="Evaluación\nde Costo Total\nde Proyecto"]
+        AnalisisEconomicoPorEtapas[label="Análisis\neconómico por etapas\nde ejecución\nde Proyecto"]
+        AnalisisCostos[label="Análisis de costo\npor cada ítem\ndel Proyecto"]
+
+		GestionProyectos[label="Gestión\nde\nProyectos"]
+        ControlPartidasPresupuestarias[label="Control de\npartidas\npresupuestarias\ndel Proyectos"]
+        ConfirmacionProyectosAprobados[label="Confirmación\nde\nProyectos\nAprobados"]
+        ConfirmacionProyectosRevision[label="Confirmación\nde\nProyectos\nen Revisión"]
+        ConfirmacionProyectosRechazados[label="Confirmación\nde\nProyectos\nRechazados"]
+        DerivacionProyecto[label="Derivación\nde\nProyectos"]
+        
+	}
+
+	// Uses
+    
+	Personal -> EvaluarProyecto 
+	Personal -> GestionProyectos
+	// Extensions
+	{
+		edge [label="<<extends>>", dir=back]
+
+		GestionProyectos -> ConfirmacionProyectosAprobados 
+		GestionProyectos -> ConfirmacionProyectosRevision
+		GestionProyectos -> ConfirmacionProyectosRechazados
+		GestionProyectos -> DerivacionProyecto 
+	}
+
+	// Inclusions
+	{
+		 edge [label="<<includes>>"]
+
+		GestionProyectos -> AnalisisEconomicoPorEtapas 
+		GestionProyectos -> ControlPartidasPresupuestarias 
+
+        EvaluarProyecto -> EvaluacionCostoProyecto
+        EvaluarProyecto -> AnalisisCostos 
+	
+	}
+
+	// Generalizations
+	{
+		edge [arrowsize=1.5, arrowtail=empty, dir=back, constraint=false]
+	
+		// Inmersion -> Batism
+		// Navigate -> GaleonPiloting
+	}
+}
